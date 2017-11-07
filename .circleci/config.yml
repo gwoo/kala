@@ -6,7 +6,7 @@ jobs:
       - image: progrium/consul
         command: "-server -bootstrap"
 
-    working_directory: /go/src/github.com/ajvb/kala
+    working_directory: /go/src/github.com/gwoo/kala
     environment:
       TEST_RESULTS: /tmp/test-results
 

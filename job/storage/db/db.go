@@ -19,17 +19,8 @@ type DB struct {
 }
 
 // New instantiates a new DB.
-func New(address string, password redis.DialOption, sendPassword bool) *DB {
-	var conn redis.Conn
-	var err error
-	if address == "" {
-		address = "127.0.0.1:6379"
-	}
-	if sendPassword {
-		conn, err = redis.Dial("tcp", address, password)
-	} else {
-		conn, err = redis.Dial("tcp", address)
-	}
+func New(address string, password redis.DialOption) *DB {
+	conn, err := redis.Dial("tcp", address, password)
 	if err != nil {
 		log.Fatal(err)
 	}
