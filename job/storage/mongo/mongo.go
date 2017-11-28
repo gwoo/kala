@@ -1,7 +1,7 @@
 package mongo
 
 import (
-	"github.com/ajvb/kala/job"
+	"github.com/gwoo/kala/job"
 
 	log "github.com/Sirupsen/logrus"
 	"gopkg.in/mgo.v2"
