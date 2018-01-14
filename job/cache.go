@@ -10,8 +10,8 @@ import (
 	"unsafe"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/ajvb/kala/metrics"
 	"github.com/cornelk/hashmap"
+	"github.com/gwoo/kala/metrics"
 )
 
 var (
