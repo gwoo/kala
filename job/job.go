@@ -433,8 +433,6 @@ func (j *Job) Run(cache JobCache) {
 	j.lock.RUnlock()
 	newStat, newMeta, err := jobRunner.Run(cache)
 	if err != nil {
-		log.Errorf("Error running job: %s", newStat.JobId)
-		log.Errorf("%s", err)
 		j.lock.RLock()
 		j.RunOnFailureJob(cache)
 		j.lock.RUnlock()
