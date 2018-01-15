@@ -21,16 +21,22 @@ type DB struct {
 }
 
 // New instantiates a new DB.
-func New(addrs string, cred *mgo.Credential) *DB {
+func New(addrs string, dbName string, cred *mgo.Credential) *DB {
 	session, err := mgo.Dial(addrs)
 	if err != nil {
 		log.Fatal(err)
 	}
-	db := session.DB(database)
+	if dbName == "" {
+		dbName = database
+	}
+	db := session.DB(dbName)
 	if cred.Username != "" {
-		err = db.Login(cred.Username, cred.Password)
+		err = session.Login(cred)
 		if err != nil {
-			log.Fatal(err)
+			err = db.Login(cred.Username, cred.Password)
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
 	}
 	c := db.C(collection)

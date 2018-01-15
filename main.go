@@ -98,6 +98,11 @@ func main() {
 					Usage: "Network address for the job database, in 'host:port' format.",
 				},
 				cli.StringFlag{
+					Name:  "jobDBName",
+					Value: "",
+					Usage: "The name for the job database.",
+				},
+				cli.StringFlag{
 					Name:  "jobDBUsername",
 					Value: "",
 					Usage: "Username for the job database, in 'username' format. Currently only needed for Mongo.",
@@ -156,10 +161,11 @@ func main() {
 					if c.String("jobDBUsername") != "" {
 						cred := &mgo.Credential{
 							Username: c.String("jobDBUsername"),
-							Password: c.String("jobDBPassword")}
-						db = mongo.New(c.String("jobDBAddress"), cred)
+							Password: c.String("jobDBPassword"),
+							Source:   c.String("jobDBName")}
+						db = mongo.New(c.String("jobDBAddress"), c.String("jobDBName"), cred)
 					} else {
-						db = mongo.New(c.String("jobDBAddress"), &mgo.Credential{})
+						db = mongo.New(c.String("jobDBAddress"), c.String("jobDBName"), &mgo.Credential{})
 					}
 				case "consul":
 					db = consul.New(c.String("jobDBAddress"))

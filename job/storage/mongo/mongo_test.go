@@ -12,7 +12,7 @@ import (
 
 func NewTestDb(t *testing.T) *DB {
 	collection = "test"
-	var db = New("", &mgo.Credential{})
+	var db = New("", "", &mgo.Credential{})
 
 	jobs, err := db.GetAll()
 	assert.NoError(t, err)
