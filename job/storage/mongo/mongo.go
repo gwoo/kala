@@ -26,13 +26,13 @@ func New(addrs string, cred *mgo.Credential) *DB {
 	if err != nil {
 		log.Fatal(err)
 	}
+	db := session.DB(database)
 	if cred.Username != "" {
-		err = session.Login(cred)
+		err = db.Login(cred.Username, cred.Password)
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
-	db := session.DB(database)
 	c := db.C(collection)
 	session.SetMode(mgo.Monotonic, true)
 	c.EnsureIndexKey("id")
