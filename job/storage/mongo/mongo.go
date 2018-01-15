@@ -81,11 +81,10 @@ func (d DB) Delete(id string) error {
 
 // Save persists a Job.
 func (d DB) Save(j *job.Job) error {
-	err := d.collection.Insert(j)
+	_, err := d.collection.Upsert(bson.M{"id": j.Id}, j)
 	if err != nil {
 		return err
 	}
-
 	return nil
 }
 
